@@ -1,4 +1,4 @@
 package negocio.excecoes;
 
-public class NomeNullException extends Exception{
+public class NomeNullException extends Exception {
 }

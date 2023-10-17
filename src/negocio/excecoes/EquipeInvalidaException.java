@@ -1,4 +1,4 @@
 package negocio.excecoes;
 
-public class EquipeInvalidaException extends Exception{
+public class EquipeInvalidaException extends Exception {
 }

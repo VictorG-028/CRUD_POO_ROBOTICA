@@ -79,25 +79,25 @@ public class Interface {
                 }
             } else if (operando == 3) {
                 if (operacao == 1) {
-                    cadastrarTecnico();
+                    cadastrarTecnico(); // TODO
                 } else if (operacao == 2) {
                     for (Tecnico item : negocioTecnico.procurarTodos()){
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
-                    deletarTecnico();
+                    deletarTecnico(); // TODO
                 }else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 4) {
                 if (operacao == 1) {
-                    cadastrarCampeonato();
+                    cadastrarCampeonato(); // TODO
                 } else if (operacao == 2) {
                     for (Campeonato item : negocioCampeonato.procurarTodos()){
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
-                    deletarCampeonato();
+                    deletarCampeonato(); // TODO
                 }else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
@@ -145,10 +145,10 @@ public class Interface {
             System.out.println(String.format("[%d] ", i) + equipes.get(i));
         }
 
-        Equipe e = scanner.pedirEquipe(negocioEquipe, "Digite um nome de uma Equipe existente para o(a) aluno(a): ");
+        Equipe nomeEquipe = scanner.pedirEquipe(negocioEquipe, "Digite o número da Equipe existente para o(a) aluno(a): ");
 
         try {
-            negocioAluno.inserir(new Aluno(nomeAluno, cpfAluno, e, idadeAluno));
+            negocioAluno.inserir(new Aluno(nomeAluno, idadeAluno, cpfAluno, nomeEquipe));
         } catch (NomeMuitoPequenoException ex) {
             System.out.println("Digite um nome com 2 ou mais caracteres, tente novamente.");
         } catch (EquipeInvalidaException ex) {

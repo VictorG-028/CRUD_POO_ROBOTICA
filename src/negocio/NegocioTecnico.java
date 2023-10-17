@@ -1,6 +1,5 @@
 package negocio;
 
-import modelo.Aluno;
 import modelo.Tecnico;
 import negocio.excecoes.*;
 import repositorio.RepositorioTecnico;

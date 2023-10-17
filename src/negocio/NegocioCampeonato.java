@@ -1,11 +1,8 @@
 package negocio;
 
 import modelo.Campeonato;
-import modelo.Equipe;
-import modelo.Tecnico;
 import negocio.excecoes.*;
 import repositorio.RepositorioCampeonato;
-import repositorio.RepositorioTecnico;
 
 import java.util.ArrayList;
 

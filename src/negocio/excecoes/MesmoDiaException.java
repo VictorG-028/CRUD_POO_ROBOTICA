@@ -1,4 +1,4 @@
 package negocio.excecoes;
 
-public class MesmoDiaException extends Exception{
+public class MesmoDiaException extends Exception {
 }

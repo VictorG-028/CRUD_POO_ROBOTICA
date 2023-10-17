@@ -1,4 +1,4 @@
 package negocio.excecoes;
 
-public class TecnicoDeMenorException extends Exception{
+public class TecnicoDeMenorException extends Exception {
 }

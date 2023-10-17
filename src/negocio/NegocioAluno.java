@@ -1,10 +1,8 @@
 package negocio;
 
 import modelo.Aluno;
-import modelo.Equipe;
 import negocio.excecoes.*;
 import repositorio.RepositorioAluno;
-import repositorio.RepositorioEquipe;
 
 import java.util.ArrayList;
 

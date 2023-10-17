@@ -1,4 +1,4 @@
 package negocio.excecoes;
 
-public class IdInvalidoException extends Exception{
+public class IdInvalidoException extends Exception {
 }
