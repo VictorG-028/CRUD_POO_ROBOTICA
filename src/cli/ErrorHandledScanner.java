@@ -25,11 +25,12 @@ public class ErrorHandledScanner {
         }
     }
 
-    public String pedirInt(String textoPedido) {
+    public int pedirInt(String textoPedido) {
         try {
             System.out.println(textoPedido);
             String valorlido = scan.nextLine();
-            return valorlido;
+            int valorParsed = Integer.parseInt(valorlido);
+            return valorParsed;
         } catch (NumberFormatException nfe) {
             System.out.println("O valor informado não é um número. Por favor insira um número.");
             return pedirInt(textoPedido);
