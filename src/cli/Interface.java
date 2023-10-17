@@ -17,17 +17,17 @@ import java.util.Scanner;
 
 public class Interface {
 
-    private static RepositorioEquipe repositorioEquipe = RepositorioEquipe.getRepositorioEquipe();
-    private static RepositorioCampeonato repositorioCampeonato = RepositorioCampeonato.getRepositorioCampeonato();
-    private static RepositorioTecnico repositorioTecnico = RepositorioTecnico.getRepositorioTecnico();
-    private static RepositorioAluno repositorioAluno = RepositorioAluno.getRepositorioAluno();
+    // private static RepositorioEquipe repositorioEquipe = RepositorioEquipe.getRepositorioEquipe();
+    // private static RepositorioCampeonato repositorioCampeonato = RepositorioCampeonato.getRepositorioCampeonato();
+    // private static RepositorioTecnico repositorioTecnico = RepositorioTecnico.getRepositorioTecnico();
+    // private static RepositorioAluno repositorioAluno = RepositorioAluno.getRepositorioAluno();
 
     private static NegocioEquipe negocioEquipe = new NegocioEquipe();
     private static NegocioAluno negocioAluno = new NegocioAluno();
     private static NegocioTecnico negocioTecnico = new NegocioTecnico();
     private static NegocioCampeonato negocioCampeonato = new NegocioCampeonato();
 
-    private static ScannerAvancado scanner = new ScannerAvancado();
+    private static ErrorHandledScanner scanner = new ErrorHandledScanner();
 
     public static void main(String[] args) throws NomeMuitoPequenoException, NomeDuplicadoException, NomeNullException, NomeVazioException, IdInvalidoException, IdNegativoException, CpfCaracterException, EquipeInvalidaException, CpfSomentoNumerosException, CpfIgualException, AlunoDeMaiorException, AlunoDeMenorException {
 
@@ -42,23 +42,19 @@ public class Interface {
                     """;
             int operando  = Integer.parseInt(scanner.pedirInt(s));
 
-            if (operando  == 0){
-                break;
-            }
+            if (operando  == 0) { break; }
             s = """
-					Digite uma operação:
-					[0] Sair
-					[1] Criar
-					[2] Listar
-					[3] Deletar
-					""";
+                Digite uma operação:
+                [0] Sair
+                [1] Criar
+                [2] Listar
+                [3] Deletar
+                """;
             int operacao = Integer.parseInt(scanner.pedirInt(s));
-            if (operando == 0 || operacao == 0) {
-                break;
-            }
+            if (operando == 0 || operacao == 0) { break; }
 
-            if (operando == 1){
-                if (operacao == 1){
+            if (operando == 1) {
+                if (operacao == 1) {
                     cadastrarEquipe();
                 } else if (operacao == 2) {
                     for (Equipe item : negocioEquipe.procurarTodos()){
@@ -70,7 +66,7 @@ public class Interface {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 2) {
-                if (operacao == 1){
+                if (operacao == 1) {
                     cadastrarAluno();
                 } else if (operacao == 2) {
                     for (Aluno item : negocioAluno.procurarTodos()){
@@ -82,7 +78,7 @@ public class Interface {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 3) {
-                if (operacao == 1){
+                if (operacao == 1) {
                     cadastrarTecnico();
                 } else if (operacao == 2) {
                     for (Tecnico item : negocioTecnico.procurarTodos()){
@@ -94,7 +90,7 @@ public class Interface {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 4) {
-                if (operacao == 1){
+                if (operacao == 1) {
                     cadastrarCampeonato();
                 } else if (operacao == 2) {
                     for (Campeonato item : negocioCampeonato.procurarTodos()){
