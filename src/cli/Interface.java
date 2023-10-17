@@ -6,21 +6,11 @@ import negocio.NegocioCampeonato;
 import negocio.NegocioEquipe;
 import negocio.NegocioTecnico;
 import negocio.excecoes.*;
-import repositorio.RepositorioAluno;
-import repositorio.RepositorioCampeonato;
-import repositorio.RepositorioEquipe;
-import repositorio.RepositorioTecnico;
 
-import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.function.Function;
 
 public class Interface {
-
-    // private static RepositorioEquipe repositorioEquipe = RepositorioEquipe.getRepositorioEquipe();
-    // private static RepositorioCampeonato repositorioCampeonato = RepositorioCampeonato.getRepositorioCampeonato();
-    // private static RepositorioTecnico repositorioTecnico = RepositorioTecnico.getRepositorioTecnico();
-    // private static RepositorioAluno repositorioAluno = RepositorioAluno.getRepositorioAluno();
 
     private static NegocioEquipe negocioEquipe = new NegocioEquipe();
     private static NegocioAluno negocioAluno = new NegocioAluno();
@@ -53,6 +43,52 @@ public class Interface {
             int operacao = scanner.pedirInt(s);
             if (operando == 0 || operacao == 0) { break; }
 
+            // Link útil para entender c´podigo abaixo (ver segunda resposta Feb 8, 2019 at 9:33)
+            // https://softwareengineering.stackexchange.com/questions/386845/creating-a-list-of-functions-in-java#:~:text=While%20you%20could%20pass%20an,have%20a%20single%20comprehensive%20list.
+            
+            ArrayList<Function<Integer, Integer>> cadastrarF = new ArrayList<>();
+            cadastrarF.add(a -> { return 0; }); // [0]
+            cadastrarF.add(a -> { try { cadastrarEquipe(); } catch (NomeMuitoPequenoException | NomeDuplicadoException | NomeNullException | NomeVazioException e) {e.printStackTrace();} return 0; }); // [1]
+            cadastrarF.add(a -> { try { cadastrarAluno(); } catch (NomeNullException | NomeVazioException | NomeMuitoPequenoException | CpfCaracterException | CpfIgualException | CpfSomentoNumerosException | EquipeInvalidaException | AlunoDeMaiorException | AlunoDeMenorException e) {e.printStackTrace();} return 0; }); // [2]
+            // cadastrarF.add(a -> { cadastrarTecnico(); return 0; }); // [3] // TODO função cadastrarTecnico
+            // cadastrarF.add(a -> { cadastrarCampeonato(); return 0; }); // [4] // TODO função cadastrarCampeonato
+            
+            // Tentativa sem sucesso de tirar o try catch
+            // List<Function<Integer, Integer>> cadastrarFuncList = List.of(
+            //     a -> { return 0; }, // [0]
+            //     a -> { cadastrarEquipe(); return 0; }, //[1]
+            //     a -> { cadastrarAluno(); return 0; }, // [2]
+            //     a -> { /*cadastrarTecnico();*/ return 0; }, // [3] // TODO função cadastrarTecnico
+            //     a -> { /*cadastrarCampeonato();*/ return 0; } // [4] // TODO função cadastrarCampeonato
+            // );
+            
+
+            ArrayList<Function<Integer, Integer>> procurarF = new ArrayList<>();
+            procurarF.add(a -> { return 0; }); // [0]
+            procurarF.add(a -> { for (Equipe item : negocioEquipe.procurarTodos()) { System.out.println(item); } return 0; }); // [1]
+            procurarF.add(a -> { for (Aluno item : negocioAluno.procurarTodos()) { System.out.println(item); } return 0; }); // [2]
+            procurarF.add(a -> { for (Tecnico item : negocioTecnico.procurarTodos()) { System.out.println(item); } return 0; }); // [3]
+            procurarF.add(a -> { for (Campeonato item : negocioCampeonato.procurarTodos()) { System.out.println(item); } return 0; }); // [4]
+            
+            ArrayList<Function<Integer, Integer>> deletarF = new ArrayList<>();
+            deletarF.add(a -> { return 0; }); // [0]
+            deletarF.add(a -> { try { deletarEquipe(); } catch (IdNegativoException | IdInvalidoException e) {e.printStackTrace();} return 0; }); // [1]
+            deletarF.add(a -> { try { deletarAluno(); } catch (IdNegativoException | IdInvalidoException e) {e.printStackTrace();} return 0; }); // [2]
+            // deletarF.add(a -> { deletarTecnico(); return 0; }); // [3] // TODO função deletarTecnico
+            // deletarF.add(a -> { deletarCampeonato(); return 0; }); // [4] // TODO função deletarCampeonato
+
+            // Nada melhor que arraylist de arraylist (matriz de arraylist). izi pizy.
+            ArrayList<ArrayList<Function<Integer, Integer>>> operacoes = new ArrayList<>();
+            operacoes.add(cadastrarF);
+            operacoes.add(procurarF);
+            operacoes.add(deletarF);
+
+            Function<Integer, Integer> lambda = operacoes.get(operando).get(operacao);
+            lambda = operacoes.get(0).get(0); // Apagar essa linha
+            lambda.apply(0); // Chama a função lambda (pesquisar Lambda Calculus (λ-calculus) para entender)
+            // https://en.wikipedia.org/wiki/Lambda_calculus
+
+            // Apagar resto do código depois de conferir implementação acima
             if (operando == 1) {
                 if (operacao == 1) {
                     cadastrarEquipe();
@@ -79,25 +115,25 @@ public class Interface {
                 }
             } else if (operando == 3) {
                 if (operacao == 1) {
-                    cadastrarTecnico(); // TODO
+                    // cadastrarTecnico(); // TODO
                 } else if (operacao == 2) {
                     for (Tecnico item : negocioTecnico.procurarTodos()) {
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
-                    deletarTecnico(); // TODO
+                    // deletarTecnico(); // TODO
                 } else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 4) {
                 if (operacao == 1) {
-                    cadastrarCampeonato(); // TODO
+                    // cadastrarCampeonato(); // TODO
                 } else if (operacao == 2) {
                     for (Campeonato item : negocioCampeonato.procurarTodos()) {
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
-                    deletarCampeonato(); // TODO
+                    // deletarCampeonato(); // TODO
                 } else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
