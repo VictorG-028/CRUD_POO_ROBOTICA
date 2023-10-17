@@ -12,7 +12,7 @@ public class RepositorioEquipe extends RepositorioGenerico<Equipe> {
         super();
     }
 
-    public static RepositorioEquipe getRepositorioEquipe(){
+    public static RepositorioEquipe getRepositorioEquipe() {
         if (singleton == null) {
             singleton = new RepositorioEquipe();
         }
@@ -20,7 +20,7 @@ public class RepositorioEquipe extends RepositorioGenerico<Equipe> {
     }
 
     @Override
-    public Equipe inserir(Equipe item){
+    public Equipe inserir(Equipe item) {
         this.incrementCurrentID();
         item.setId(this.getCurrentID());
         this.getDatabase().add(item);
@@ -29,16 +29,16 @@ public class RepositorioEquipe extends RepositorioGenerico<Equipe> {
     }
 
     @Override
-    public ArrayList<Equipe> procurarTodos(){
+    public ArrayList<Equipe> procurarTodos() {
         return new ArrayList<>(this.getDatabase());
     }
 
     @Override
-    public Equipe procurarPorId(int id){
+    public Equipe procurarPorId(int id) {
         Equipe item = null;
 
         for (Equipe equipe: this.getDatabase()) {
-            if (equipe.getId() == id){
+            if (equipe.getId() == id) {
                 item = equipe;
                 break;
             }
@@ -47,11 +47,11 @@ public class RepositorioEquipe extends RepositorioGenerico<Equipe> {
     }
 
     @Override
-    public Equipe procurarPorNome(String nome){
+    public Equipe procurarPorNome(String nome) {
         Equipe item = null;
 
         for (Equipe equipe: this.getDatabase()) {
-            if (equipe.getNome().toLowerCase().equals(nome.toLowerCase())){
+            if (equipe.getNome().toLowerCase().equals(nome.toLowerCase())) {
                 item = equipe;
                 break;
             }
@@ -60,17 +60,17 @@ public class RepositorioEquipe extends RepositorioGenerico<Equipe> {
     }
 
     @Override
-    public void deletarTodos(){
+    public void deletarTodos() {
         this.getDatabase().clear();
     }
 
     @Override
-    public boolean deletarPorId(int id){
+    public boolean deletarPorId(int id) {
         Equipe item = procurarPorId(id);
 
-        if (item == null){
+        if (item == null) {
             return false;
-        }else {
+        } else {
             this.getDatabase().remove(item);
             return true;
         }

@@ -22,28 +22,28 @@ public class NegocioEquipe {
         this.repositorioTecnico = RepositorioTecnico.getRepositorioTecnico();
     }
 
-    public void validate(Equipe equipe){
+    public void validate(Equipe equipe) {
         int qtdAluno = repositorioAluno.procurarPorEquipe(equipe.getNome()).size();
         int qtdTecnico = repositorioTecnico.procurarPorEquipe(equipe.getNome()).size();
-        if (qtdAluno >= 2 && qtdAluno <= 10 && qtdTecnico >= 1 && qtdTecnico <= 2){
+        if (qtdAluno >= 2 && qtdAluno <= 10 && qtdTecnico >= 1 && qtdTecnico <= 2) {
             equipe.setValid(true);
         }
     }
 
-    public ArrayList<Equipe> procurarTodos(){
+    public ArrayList<Equipe> procurarTodos() {
         return repositorioEquipe.procurarTodos();
     }
 
-    public Equipe procurarPorNome(String nome){
+    public Equipe procurarPorNome(String nome) {
         return repositorioEquipe.procurarPorNome(nome);
     }
 
-    public Equipe procurarPorId(int id){
+    public Equipe procurarPorId(int id) {
         return repositorioEquipe.procurarPorId(id);
     }
 
     public Equipe inserir(Equipe item) throws NomeDuplicadoException, NomeNullException, NomeVazioException, NomeMuitoPequenoException{
-        if (item.getNome() == null){
+        if (item.getNome() == null) {
             throw new NomeNullException();
         } else if (item.getNome().isEmpty()) {
             throw new NomeVazioException();
@@ -57,13 +57,13 @@ public class NegocioEquipe {
     }
 
     public boolean deletarPorId(int id) throws IdNegativoException, IdInvalidoException {
-        if (id < 0){
+        if (id < 0) {
             throw new IdNegativoException();
         }
 
         Equipe e = repositorioEquipe.procurarPorId(id);
 
-        if (e == null){
+        if (e == null) {
             throw new IdInvalidoException();
         }
 
@@ -81,7 +81,7 @@ public class NegocioEquipe {
         return repositorioEquipe.deletarPorId(id);
     }
 
-    public void deletarTodos(){
+    public void deletarTodos() {
         repositorioEquipe.deletarTodos();
     }
 

@@ -13,7 +13,7 @@ public class RepositorioAluno extends RepositorioGenerico<Aluno> {
     }
 
     public static RepositorioAluno getRepositorioAluno() {
-        if (singleton == null){
+        if (singleton == null) {
             singleton = new RepositorioAluno();
         }
         return singleton;
@@ -38,7 +38,7 @@ public class RepositorioAluno extends RepositorioGenerico<Aluno> {
         Aluno item = null;
 
         for (Aluno aluno: this.getDatabase()) {
-            if (aluno.getId() == id){
+            if (aluno.getId() == id) {
                 item = aluno;
                 break;
             }
@@ -51,7 +51,7 @@ public class RepositorioAluno extends RepositorioGenerico<Aluno> {
         Aluno item = null;
 
         for (Aluno aluno: this.getDatabase()) {
-            if (aluno.getNome().toLowerCase().equals(nome.toLowerCase())){
+            if (aluno.getNome().toLowerCase().equals(nome.toLowerCase())) {
                 item = aluno;
                 break;
             }
@@ -74,7 +74,7 @@ public class RepositorioAluno extends RepositorioGenerico<Aluno> {
     public Aluno procurarPorCpf(String cpf) {
         Aluno cpfAluno = null;
         for (Aluno aluno: this.getDatabase()) {
-            if (aluno.getCpf().equals(cpf)){
+            if (aluno.getCpf().equals(cpf)) {
                 cpfAluno = aluno;
                 break;
             }
@@ -83,7 +83,7 @@ public class RepositorioAluno extends RepositorioGenerico<Aluno> {
     }
 
     @Override
-    public void deletarTodos(){
+    public void deletarTodos() {
         this.getDatabase().clear();
     }
 
@@ -91,9 +91,9 @@ public class RepositorioAluno extends RepositorioGenerico<Aluno> {
     public boolean deletarPorId(int id) {
         Aluno item = procurarPorId(id);
 
-        if (item == null){
+        if (item == null) {
             return false;
-        }else {
+        } else {
             this.getDatabase().remove(item);
             return true;
         }

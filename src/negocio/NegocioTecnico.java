@@ -11,24 +11,24 @@ public class NegocioTecnico {
     private RepositorioTecnico repositorioTecnico;
     private NegocioEquipe negocioEquipe;
 
-    public NegocioTecnico(){
+    public NegocioTecnico() {
         this.repositorioTecnico = RepositorioTecnico.getRepositorioTecnico();
     }
 
-    public ArrayList<Tecnico> procurarTodos(){
+    public ArrayList<Tecnico> procurarTodos() {
         return repositorioTecnico.procurarTodos();
     }
 
-    public Tecnico procurarPorNome(String nome){
+    public Tecnico procurarPorNome(String nome) {
         return repositorioTecnico.procurarPorNome(nome);
     }
 
-    public Tecnico procurarPorId(int id){
+    public Tecnico procurarPorId(int id) {
         return repositorioTecnico.procurarPorId(id);
     }
 
     public Tecnico inserir(Tecnico item) throws NomeNullException, NomeVazioException, NomeMuitoPequenoException, TecnicoDeMenorException, EquipeInvalidaException, CpfSomentoNumerosException, CpfCaracterException, CpfIgualException {
-        if (item.getNome() == null){
+        if (item.getNome() == null) {
             throw new NomeNullException();
         } else if (item.getNome().isEmpty()) {
             throw new NomeVazioException();
@@ -36,7 +36,7 @@ public class NegocioTecnico {
             throw new NomeMuitoPequenoException();
         }
 
-        if (item.getIdade() < 18){
+        if (item.getIdade() < 18) {
             throw new TecnicoDeMenorException();
         }
 
@@ -52,7 +52,7 @@ public class NegocioTecnico {
 
         int qtdTecnicos =  repositorioTecnico.procurarPorEquipe(item.getEquipe().getNome()).size();
 
-        if (qtdTecnicos > 2){
+        if (qtdTecnicos > 2) {
             throw new EquipeInvalidaException();
         }
 
@@ -62,20 +62,20 @@ public class NegocioTecnico {
     }
 
     public boolean deletarPorId(int id) throws IdNegativoException, IdInvalidoException{
-        if (id < 0){
+        if (id < 0) {
             throw new IdNegativoException();
         }
 
         Tecnico t = repositorioTecnico.procurarPorId(id);
 
-        if (t == null){
+        if (t == null) {
             throw new IdInvalidoException();
         }
 
         return repositorioTecnico.deletarPorId(id);
     }
 
-    public void deletarTodos(){
+    public void deletarTodos() {
         repositorioTecnico.deletarTodos();
     }
 }

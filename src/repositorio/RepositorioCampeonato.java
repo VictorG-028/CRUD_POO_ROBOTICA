@@ -32,11 +32,11 @@ public class RepositorioCampeonato extends RepositorioGenerico<Campeonato> {
         return new ArrayList<>(this.getDatabase());
     }
 
-    public Campeonato procurarPorId(int id){
+    public Campeonato procurarPorId(int id) {
         Campeonato item = null;
 
         for (Campeonato campeonato: this.getDatabase()) {
-            if (campeonato.getId() == id){
+            if (campeonato.getId() == id) {
                 item = campeonato;
                 break;
             }
@@ -48,7 +48,7 @@ public class RepositorioCampeonato extends RepositorioGenerico<Campeonato> {
         Campeonato item = null;
 
         for (Campeonato campeonato: this.getDatabase()) {
-            if (campeonato.getNome().toLowerCase().equals(nome.toLowerCase())){
+            if (campeonato.getNome().toLowerCase().equals(nome.toLowerCase())) {
                 item = campeonato;
                 break;
             }
@@ -63,9 +63,9 @@ public class RepositorioCampeonato extends RepositorioGenerico<Campeonato> {
     public boolean deletarPorId(int id) {
         Campeonato item = procurarPorId(id);
 
-        if (item == null){
+        if (item == null) {
             return false;
-        }else {
+        } else {
             this.getDatabase().remove(item);
             return true;
         }

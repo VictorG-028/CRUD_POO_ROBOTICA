@@ -11,24 +11,24 @@ public class NegocioAluno {
     private RepositorioAluno repositorioAluno;
     private NegocioEquipe negocioEquipe;
 
-    public NegocioAluno(){
+    public NegocioAluno() {
         this.repositorioAluno = RepositorioAluno.getRepositorioAluno();
     }
 
-    public ArrayList<Aluno> procurarTodos(){
+    public ArrayList<Aluno> procurarTodos() {
         return repositorioAluno.procurarTodos();
     }
 
-    public Aluno procurarPorNome(String nome){
+    public Aluno procurarPorNome(String nome) {
         return repositorioAluno.procurarPorNome(nome);
     }
 
-    public Aluno procurarPorId(int id){
+    public Aluno procurarPorId(int id) {
         return repositorioAluno.procurarPorId(id);
     }
 
     public Aluno inserir(Aluno item) throws NomeNullException, NomeVazioException, NomeMuitoPequenoException, AlunoDeMaiorException, AlunoDeMenorException, EquipeInvalidaException, CpfSomentoNumerosException, CpfCaracterException, CpfIgualException {
-        if (item.getNome() == null){
+        if (item.getNome() == null) {
             throw new NomeNullException();
         } else if (item.getNome().isEmpty()) {
             throw new NomeVazioException();
@@ -36,9 +36,9 @@ public class NegocioAluno {
             throw new NomeMuitoPequenoException();
         }
 
-        if (item.getIdade() < 9){
+        if (item.getIdade() < 9) {
             throw new AlunoDeMenorException();
-        }else if (item.getIdade() > 15){
+        } else if (item.getIdade() > 15) {
             throw new AlunoDeMaiorException();
         }
 
@@ -55,7 +55,7 @@ public class NegocioAluno {
 
         int qtdAlunos = repositorioAluno.procurarPorEquipe(item.getEquipe().getNome()).size();
 
-        if (qtdAlunos > 10){
+        if (qtdAlunos > 10) {
             throw new EquipeInvalidaException();
         }
 
@@ -66,20 +66,20 @@ public class NegocioAluno {
     }
 
     public boolean deletarPorId(int id) throws IdNegativoException, IdInvalidoException{
-        if (id < 0){
+        if (id < 0) {
             throw new IdNegativoException();
         }
 
         Aluno a = repositorioAluno.procurarPorId(id);
 
-        if (a == null){
+        if (a == null) {
             throw new IdInvalidoException();
         }
 
         return repositorioAluno.deletarPorId(id);
     }
 
-    public void deletarTodos(){
+    public void deletarTodos() {
         repositorioAluno.deletarTodos();
     }
 }

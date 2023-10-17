@@ -8,12 +8,12 @@ public class RepositorioTecnico extends RepositorioGenerico<Tecnico> {
 
     private static RepositorioTecnico singleton;
 
-    private RepositorioTecnico(){
+    private RepositorioTecnico() {
         super();
     }
 
     public static RepositorioTecnico getRepositorioTecnico() {
-        if (singleton == null){
+        if (singleton == null) {
             singleton = new RepositorioTecnico();
         }
         return singleton;
@@ -38,7 +38,7 @@ public class RepositorioTecnico extends RepositorioGenerico<Tecnico> {
         Tecnico item = null;
 
         for (Tecnico tecnico: this.getDatabase()) {
-            if (tecnico.getId() == id){
+            if (tecnico.getId() == id) {
                 item = tecnico;
                 break;
             }
@@ -51,7 +51,7 @@ public class RepositorioTecnico extends RepositorioGenerico<Tecnico> {
         Tecnico item = null;
 
         for (Tecnico tecnico: this.getDatabase()) {
-            if (tecnico.getNome().toLowerCase().equals(nome.toLowerCase())){
+            if (tecnico.getNome().toLowerCase().equals(nome.toLowerCase())) {
                 item = tecnico;
                 break;
             }
@@ -63,7 +63,7 @@ public class RepositorioTecnico extends RepositorioGenerico<Tecnico> {
         ArrayList<Tecnico> tecnicoFiltrados = new ArrayList<>();
 
         for (Tecnico tecnico: tecnicoFiltrados) {
-            if (tecnico.getEquipe().getNome().toLowerCase().equals(nomeEquipe.toLowerCase())){
+            if (tecnico.getEquipe().getNome().toLowerCase().equals(nomeEquipe.toLowerCase())) {
                 tecnicoFiltrados.add(tecnico);
             }
         }
@@ -73,7 +73,7 @@ public class RepositorioTecnico extends RepositorioGenerico<Tecnico> {
     public Tecnico procurarPorCpf(String cpf) {
         Tecnico cpfTecnico = null;
         for (Tecnico tecnico: this.getDatabase()) {
-            if (tecnico.getCpf().equals(cpf)){
+            if (tecnico.getCpf().equals(cpf)) {
                 cpfTecnico = tecnico;
                 break;
             }
@@ -90,9 +90,9 @@ public class RepositorioTecnico extends RepositorioGenerico<Tecnico> {
     public boolean deletarPorId(int id) {
         Tecnico item = procurarPorId(id);
 
-        if (item == null){
+        if (item == null) {
             return false;
-        }else {
+        } else {
             this.getDatabase().remove(item);
             return true;
         }

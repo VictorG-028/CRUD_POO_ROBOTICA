@@ -40,7 +40,7 @@ public class Interface {
                     [3] Técnico
                     [4] Campeonato             
                     """;
-            int operando  = Integer.parseInt(scanner.pedirInt(s));
+            int operando  = scanner.pedirInt(s);
 
             if (operando  == 0) { break; }
             s = """
@@ -50,55 +50,55 @@ public class Interface {
                 [2] Listar
                 [3] Deletar
                 """;
-            int operacao = Integer.parseInt(scanner.pedirInt(s));
+            int operacao = scanner.pedirInt(s);
             if (operando == 0 || operacao == 0) { break; }
 
             if (operando == 1) {
                 if (operacao == 1) {
                     cadastrarEquipe();
                 } else if (operacao == 2) {
-                    for (Equipe item : negocioEquipe.procurarTodos()){
+                    for (Equipe item : negocioEquipe.procurarTodos()) {
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
                     deletarEquipe();
-                }else {
+                } else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 2) {
                 if (operacao == 1) {
                     cadastrarAluno();
                 } else if (operacao == 2) {
-                    for (Aluno item : negocioAluno.procurarTodos()){
+                    for (Aluno item : negocioAluno.procurarTodos()) {
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
                     deletarAluno();
-                }else {
+                } else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 3) {
                 if (operacao == 1) {
                     cadastrarTecnico(); // TODO
                 } else if (operacao == 2) {
-                    for (Tecnico item : negocioTecnico.procurarTodos()){
+                    for (Tecnico item : negocioTecnico.procurarTodos()) {
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
                     deletarTecnico(); // TODO
-                }else {
+                } else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             } else if (operando == 4) {
                 if (operacao == 1) {
                     cadastrarCampeonato(); // TODO
                 } else if (operacao == 2) {
-                    for (Campeonato item : negocioCampeonato.procurarTodos()){
+                    for (Campeonato item : negocioCampeonato.procurarTodos()) {
                         System.out.println(item);
                     }
                 } else if (operacao == 3) {
                     deletarCampeonato(); // TODO
-                }else {
+                } else {
                     System.out.println("Opção inválida, tente novamente.");
                 }
             }
@@ -124,7 +124,7 @@ public class Interface {
     }
 
     public static void deletarEquipe() throws IdNegativoException, IdInvalidoException{
-        int del = Integer.parseInt(scanner.pedirInt("Digite o número do Id da Equipe que deseja deletar."));
+        int del = scanner.pedirInt("Digite o número do Id da Equipe que deseja deletar.");
         try {
             negocioEquipe.deletarPorId(del);
         } catch (IdInvalidoException e) {
@@ -136,19 +136,20 @@ public class Interface {
 
     public static void cadastrarAluno() throws NomeNullException, NomeVazioException, NomeMuitoPequenoException, CpfCaracterException, CpfIgualException, CpfSomentoNumerosException, EquipeInvalidaException, AlunoDeMaiorException, AlunoDeMenorException{
         String nomeAluno = scanner.pedirString("Digite o nome do aluno(a) a ser cadastrado(a): ");
-        int idadeAluno = Integer.parseInt(scanner.pedirInt("Digite a idade do(a) aluno(a)"));
+        int idadeAluno = scanner.pedirInt("Digite a idade do(a) aluno(a)");
         String cpfAluno = scanner.pedirString("Digite o cpf do(a) aluno(a): ");
 
         ArrayList<Equipe> equipes = negocioEquipe.procurarTodos();
 
-        for (int i = 0; i < equipes.size(); i++){
+        for (int i = 0; i < equipes.size(); i++) {
             System.out.println(String.format("[%d] ", i) + equipes.get(i));
         }
 
-        Equipe nomeEquipe = scanner.pedirEquipe(negocioEquipe, "Digite o número da Equipe existente para o(a) aluno(a): ");
+        int equipeIndice = scanner.pedirInt("Digite o número da Equipe existente para o(a) aluno(a): ");
+        Equipe equipeDoAluno = equipes.get(equipeIndice);
 
         try {
-            negocioAluno.inserir(new Aluno(nomeAluno, idadeAluno, cpfAluno, nomeEquipe));
+            negocioAluno.inserir(new Aluno(nomeAluno, idadeAluno, cpfAluno, equipeDoAluno));
         } catch (NomeMuitoPequenoException ex) {
             System.out.println("Digite um nome com 2 ou mais caracteres, tente novamente.");
         } catch (EquipeInvalidaException ex) {
@@ -171,7 +172,7 @@ public class Interface {
     }
 
     public static void deletarAluno() throws IdNegativoException, IdInvalidoException{
-        int del = Integer.parseInt(scanner.pedirInt("Digite o número do Id do(a) Aluno(a) que deseja deletar."));
+        int del = scanner.pedirInt("Digite o número do Id do(a) Aluno(a) que deseja deletar.");
         try {
             negocioAluno.deletarPorId(del);
         } catch (IdInvalidoException e) {
