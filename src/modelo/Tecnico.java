@@ -1,26 +1,18 @@
 package modelo;
 
-public class Tecnico extends Pessoa{
+public class Tecnico extends Pessoa {
 
-    private int idade;
-
-    public Tecnico(String nome, String cpf, Equipe equipe, int idade) {
-        super(nome, cpf, equipe);
-        this.idade = idade;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public Tecnico(String nome, int idade, String cpf, Equipe equipe) {
+        super(nome, idade, cpf, equipe);
     }
 
     @Override
     public String toString() {
-        return "Tecnico{" +
-                "idade=" + idade +
-                '}';
+        return "Aluno{ " +
+                "id=" + this.getId() + "\', " + 
+                "nome='" + this.getNome() + "\', " +
+                "cpf='" + this.getCpf() + "\', " +
+                "equipe='" + this.getEquipe() + "\'" +
+                " }";
     }
 }
