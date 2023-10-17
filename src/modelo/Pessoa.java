@@ -32,7 +32,7 @@ public abstract class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{ " +
+        return this.getClass().getSimpleName() + "{ " +
                 "id=" + id + "\', " + 
                 "nome='" + nome + "\', " +
                 "cpf='" + cpf + "\', " +
