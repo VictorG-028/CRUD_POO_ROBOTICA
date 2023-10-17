@@ -1,46 +1,41 @@
 package repositorio;
 
 import modelo.Campeonato;
-import modelo.Equipe;
-import modelo.Tecnico;
 
 import java.util.ArrayList;
 
-public class RepositorioCampeonato {
+public class RepositorioCampeonato extends RepositorioGenerico<Campeonato> {
 
-    private ArrayList<Campeonato> campeonatoes;
-    private int ultimoIdAdicionado;
     private static RepositorioCampeonato singleton;
 
 
-    private RepositorioCampeonato(){
-        campeonatoes = new ArrayList<Campeonato>();
-        ultimoIdAdicionado = 0;
+    private RepositorioCampeonato() {
+        super();
     }
 
-    public static RepositorioCampeonato getRepositorioCampeonato(){
-        if (singleton == null){
+    public static RepositorioCampeonato getRepositorioCampeonato() {
+        if (singleton == null) {
             singleton = new RepositorioCampeonato();
         }
         return singleton;
     }
 
-    public Campeonato inserir(Campeonato item){
-        ultimoIdAdicionado = ultimoIdAdicionado + 1;
-        item.setId(ultimoIdAdicionado);
-        campeonatoes.add(item);
+    public Campeonato inserir(Campeonato item) {
+        this.incrementCurrentID();
+        item.setId(this.getCurrentID());
+        this.getDatabase().add(item);
 
         return item;
     }
 
-    public ArrayList<Campeonato> procurarTodos(){
-        return new ArrayList<>(campeonatoes);
+    public ArrayList<Campeonato> procurarTodos() {
+        return new ArrayList<>(this.getDatabase());
     }
 
     public Campeonato procurarPorId(int id){
         Campeonato item = null;
 
-        for (Campeonato campeonato: campeonatoes) {
+        for (Campeonato campeonato: this.getDatabase()) {
             if (campeonato.getId() == id){
                 item = campeonato;
                 break;
@@ -49,10 +44,10 @@ public class RepositorioCampeonato {
         return item;
     }
 
-    public Campeonato procurarPorNome(String nome){
+    public Campeonato procurarPorNome(String nome) {
         Campeonato item = null;
 
-        for (Campeonato campeonato: campeonatoes) {
+        for (Campeonato campeonato: this.getDatabase()) {
             if (campeonato.getNome().toLowerCase().equals(nome.toLowerCase())){
                 item = campeonato;
                 break;
@@ -61,17 +56,17 @@ public class RepositorioCampeonato {
         return item;
     }
 
-    public void deletarTodos(){
-        campeonatoes.clear();
+    public void deletarTodos() {
+        this.getDatabase().clear();
     }
 
-    public boolean deletarPorId(int id){
+    public boolean deletarPorId(int id) {
         Campeonato item = procurarPorId(id);
 
         if (item == null){
             return false;
         }else {
-            campeonatoes.remove(item);
+            this.getDatabase().remove(item);
             return true;
         }
     }

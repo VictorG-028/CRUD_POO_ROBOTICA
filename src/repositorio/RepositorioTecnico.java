@@ -1,44 +1,43 @@
 package repositorio;
 
-import modelo.Aluno;
 import modelo.Tecnico;
 
 import java.util.ArrayList;
 
-public class RepositorioTecnico {
+public class RepositorioTecnico extends RepositorioGenerico<Tecnico> {
 
-    private ArrayList<Tecnico> tecnicos;
-    private int ultimoIdAdicionado;
     private static RepositorioTecnico singleton;
 
     private RepositorioTecnico(){
-        tecnicos = new ArrayList<Tecnico>();
-        ultimoIdAdicionado = 0;
+        super();
     }
 
-    public static RepositorioTecnico getRepositorioTecnico(){
+    public static RepositorioTecnico getRepositorioTecnico() {
         if (singleton == null){
             singleton = new RepositorioTecnico();
         }
         return singleton;
     }
 
-    public Tecnico inserir(Tecnico item){
-        ultimoIdAdicionado = ultimoIdAdicionado + 1;
-        item.setId(ultimoIdAdicionado);
-        tecnicos.add(item);
+    @Override
+    public Tecnico inserir(Tecnico item) {
+        this.incrementCurrentID();
+        item.setId(this.getCurrentID());
+        this.getDatabase().add(item);
 
         return item;
     }
 
-    public ArrayList<Tecnico> procurarTodos(){
-        return new ArrayList<>(tecnicos);
+    @Override
+    public ArrayList<Tecnico> procurarTodos() {
+        return new ArrayList<>(this.getDatabase());
     }
 
-    public Tecnico procurarPorId(int id){
+    @Override
+    public Tecnico procurarPorId(int id) {
         Tecnico item = null;
 
-        for (Tecnico tecnico: tecnicos) {
+        for (Tecnico tecnico: this.getDatabase()) {
             if (tecnico.getId() == id){
                 item = tecnico;
                 break;
@@ -47,10 +46,11 @@ public class RepositorioTecnico {
         return item;
     }
 
-    public Tecnico procurarPorNome(String nome){
+    @Override
+    public Tecnico procurarPorNome(String nome) {
         Tecnico item = null;
 
-        for (Tecnico tecnico: tecnicos) {
+        for (Tecnico tecnico: this.getDatabase()) {
             if (tecnico.getNome().toLowerCase().equals(nome.toLowerCase())){
                 item = tecnico;
                 break;
@@ -59,7 +59,7 @@ public class RepositorioTecnico {
         return item;
     }
 
-    public ArrayList<Tecnico> procurarPorEquipe(String nomeEquipe){
+    public ArrayList<Tecnico> procurarPorEquipe(String nomeEquipe) {
         ArrayList<Tecnico> tecnicoFiltrados = new ArrayList<>();
 
         for (Tecnico tecnico: tecnicoFiltrados) {
@@ -70,9 +70,9 @@ public class RepositorioTecnico {
         return tecnicoFiltrados;
     }
 
-    public Tecnico procurarPorCpf(String cpf){
+    public Tecnico procurarPorCpf(String cpf) {
         Tecnico cpfTecnico = null;
-        for (Tecnico tecnico: tecnicos){
+        for (Tecnico tecnico: this.getDatabase()) {
             if (tecnico.getCpf().equals(cpf)){
                 cpfTecnico = tecnico;
                 break;
@@ -81,17 +81,19 @@ public class RepositorioTecnico {
         return cpfTecnico;
     }
 
-    public void deletarTodos(){
-        tecnicos.clear();
+    @Override
+    public void deletarTodos() {
+        this.getDatabase().clear();
     }
 
-    public boolean deletarPorId(int id){
+    @Override
+    public boolean deletarPorId(int id) {
         Tecnico item = procurarPorId(id);
 
         if (item == null){
             return false;
         }else {
-            tecnicos.remove(item);
+            this.getDatabase().remove(item);
             return true;
         }
     }

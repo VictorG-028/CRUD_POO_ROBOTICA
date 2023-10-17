@@ -1,46 +1,43 @@
 package repositorio;
 
 import modelo.Aluno;
-import modelo.Equipe;
-import modelo.Tecnico;
 
 import java.util.ArrayList;
 
-public class RepositorioAluno {
+public class RepositorioAluno extends RepositorioGenerico<Aluno> {
 
-    private ArrayList<Aluno> alunos;
-    private int ultimoIdAdicionado;
     private static RepositorioAluno singleton;
 
-    private RepositorioAluno(){
-        alunos = new ArrayList<Aluno>();
-        ultimoIdAdicionado = 0;
+    private RepositorioAluno() {
+        super();
     }
 
-    public static RepositorioAluno getRepositorioAluno(){
+    public static RepositorioAluno getRepositorioAluno() {
         if (singleton == null){
             singleton = new RepositorioAluno();
         }
         return singleton;
     }
 
-    public Aluno inserir(Aluno item){
-        ultimoIdAdicionado = ultimoIdAdicionado + 1;
-        //item.setId(alunos.size());
-        item.setId(ultimoIdAdicionado);
-        alunos.add(item);
+    @Override
+    public Aluno inserir(Aluno item) {
+        this.incrementCurrentID();
+        item.setId(this.getCurrentID());
+        this.getDatabase().add(item);
 
         return item;
     }
 
-    public ArrayList<Aluno> procurarTodos(){
-        return new ArrayList<>(alunos);
+    @Override
+    public ArrayList<Aluno> procurarTodos() {
+        return new ArrayList<>(this.getDatabase());
     }
 
-    public Aluno procurarPorId(int id){
+    @Override
+    public Aluno procurarPorId(int id) {
         Aluno item = null;
 
-        for (Aluno aluno: alunos) {
+        for (Aluno aluno: this.getDatabase()) {
             if (aluno.getId() == id){
                 item = aluno;
                 break;
@@ -49,10 +46,11 @@ public class RepositorioAluno {
         return item;
     }
 
-    public Aluno procurarPorNome(String nome){
+    @Override
+    public Aluno procurarPorNome(String nome) {
         Aluno item = null;
 
-        for (Aluno aluno: alunos) {
+        for (Aluno aluno: this.getDatabase()) {
             if (aluno.getNome().toLowerCase().equals(nome.toLowerCase())){
                 item = aluno;
                 break;
@@ -61,20 +59,21 @@ public class RepositorioAluno {
         return item;
     }
 
-    public ArrayList<Aluno> procurarPorEquipe(String nomeEquipe){
+    public ArrayList<Aluno> procurarPorEquipe(String nomeEquipe) {
         ArrayList<Aluno> alunosFiltrados = new ArrayList<>();
 
         for (Aluno aluno: alunosFiltrados) {
-            if (aluno.getEquipe().getNome().toLowerCase().equals(nomeEquipe.toLowerCase())){
+            String nomeEquipeLoop = aluno.getEquipe().getNome().toLowerCase();
+            if  (nomeEquipeLoop.equals(nomeEquipe.toLowerCase())) {
                 alunosFiltrados.add(aluno);
             }
         }
         return alunosFiltrados;
     }
 
-    public Aluno procurarPorCpf(String cpf){
+    public Aluno procurarPorCpf(String cpf) {
         Aluno cpfAluno = null;
-        for (Aluno aluno: alunos){
+        for (Aluno aluno: this.getDatabase()) {
             if (aluno.getCpf().equals(cpf)){
                 cpfAluno = aluno;
                 break;
@@ -83,17 +82,19 @@ public class RepositorioAluno {
         return cpfAluno;
     }
 
+    @Override
     public void deletarTodos(){
-        alunos.clear();
+        this.getDatabase().clear();
     }
 
-    public boolean deletarPorId(int id){
+    @Override
+    public boolean deletarPorId(int id) {
         Aluno item = procurarPorId(id);
 
         if (item == null){
             return false;
         }else {
-            alunos.remove(item);
+            this.getDatabase().remove(item);
             return true;
         }
     }
